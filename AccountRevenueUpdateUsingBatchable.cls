@@ -11,9 +11,9 @@ global class AccountRevenueUpdateUsingBatchable implements Database.Batchable<so
         for(Account acc : accList){
             
             if(acc.AnnualRevenue == null){
-                acc.AnnualRevenue = 50;
+                acc.AnnualRevenue = 60;
             }else{
-                acc.AnnualRevenue += 50;
+                acc.AnnualRevenue += 60;
             }
         }
 
