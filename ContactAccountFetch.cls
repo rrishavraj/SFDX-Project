@@ -6,8 +6,6 @@
  * @see ContactAccountFetch
  * @since 2024
  * @returns Account[]
- * @group-content D:\apex dev\apex development\apex-documentation
- * @group Accounts
  * @example
  * 
  * Id contactId = '003O800000DAowvIAD';
