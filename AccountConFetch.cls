@@ -6,7 +6,6 @@
  * @see AccountConFetch
  * @since 2024
  * @returns Contact[]
- * @group-content D:\apex dev\apex development\apex-documentation
  * @group Contacts
  * @example
  * 
