@@ -1,1 +1,43 @@
 
+name: GitHub Action Pipeline Template
+
+run-name: ${{ github.actor }} is running pipeline on ${{ github.repository }}
+
+on: 
+  workflow_dispatch:
+  push:
+    
+    branches:
+      - master
+      - main
+    paths:
+      - 'force-app/**'
+    
+    
+  pull_request:
+    #types: [closed]
+  
+    branches:
+      - feature1
+    paths:
+      - 'force-app/**'
+
+      
+jobs:
+  
+  Deploy:
+    name: Deploy
+    
+    uses: "./.github/workflows/demo.yml"
+    permissions:
+      security-events: write
+      pull-requests: write
+      actions: read
+      contents: read
+      issues: write
+    with: 
+      environment: sandbox
+      # RunLocalTests
+      TESTLEVEL: RunSpecifiedTests
+      TESTCLASSES: TestAccountRevenueUpdateUsingBatchable
+    secrets: inherit
