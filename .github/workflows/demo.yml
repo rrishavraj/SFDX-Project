@@ -1,1 +1,25 @@
+name: Test Pipeline for SFDX
+
+on:
+    pull_request:
+        branches:
+            -development
+            
+        paths:
+            - 'force-app\**'
+      
+
+
+
+jobs:
+    validate-deployment-on-integration-org:
+        runs-on: ubuntu-latest
+        if: ${{github.actor != 'rishavraj'}}
+        steps:
+            - uses: actions\setup-node@v2
+              with:
+                node-version: '14'
+
+        
+
 
