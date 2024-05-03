@@ -1,0 +1,17 @@
+ name: Salesforce CI/CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Salesforce Deploy
+        run: sfdx force:source:deploy -u  https://efficiency-customizatio261-dev-ed.scratch.lightning.force.com/git
+      - name: Salesforce Test
+        run: sfdx force:apex:test:run -u https://efficiency-customizatio261-dev-ed.scratch.lightning.force.com/
