@@ -11,6 +11,8 @@ on:
       - main
       - feature1
       # Add other branches here as needed
+    types:
+      - closed
 
 jobs:
   deploy-and-test:
@@ -20,6 +22,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # Install Salesforce CLI
+      - name: Install Salesforce CLI
+        run: |
+          wget -qO- https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz | tar xJf - -C /usr/local/bin --strip-components 1
+          echo "Installed Salesforce CLI"
+          
       # Authenticate with Salesforce
       - name: Authenticate with Salesforce
         run: |
