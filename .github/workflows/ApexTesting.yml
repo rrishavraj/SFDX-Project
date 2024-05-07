@@ -33,7 +33,7 @@ jobs:
       # Authenticate with Salesforce
       - name: Authenticate Salesforce Org
         run: |
-          echo "secrets.6Cel800DO8000002OyDB888O80000004hw1Fahk2OXw9dM4WLGBG9n4FGsEZECGXEBvfbu3ik7LCcdOBwggJmDaAa2saUdcwCREQfEjazyU" > server.key
+          echo "${SALESFORCE_JWT_SECRET_KEY}" > server.key
           node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid 3MVG9x3BHiue58jUH70baoUwtfjFv8CCAjriPQFOUgB7fpCSO26ku08WpBjrkJRmVOwUf4qwdNdUlORYmQd.s --jwtkeyfile server.key --username rishav.raj@anchovies.spektra.in.devhub --setdefaultdevhubusername -a devhub
           env:
           SALESFORCE_JWT_SECRET_KEY: secrets.6Cel800DO8000002OyDB888O80000004hw1Fahk2OXw9dM4WLGBG9n4FGsEZECGXEBvfbu3ik7LCcdOBwggJmDaAa2saUdcwCREQfEjazyU
