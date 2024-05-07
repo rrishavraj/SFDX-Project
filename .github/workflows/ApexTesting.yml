@@ -29,10 +29,6 @@ jobs:
           node_modules/sfdx-cli/bin/run --version
           node_modules/sfdx-cli/bin/run plugins --core
 
-      # Set PATH to include Salesforce CLI
-      - name: Set PATH
-        run: echo "::add-path::/usr/local/bin"
-
       # Authenticate with Salesforce
       - name: Authenticate with Salesforce
         run: |
