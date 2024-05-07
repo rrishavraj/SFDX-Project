@@ -1,49 +1,26 @@
-name: GitHub Action Pipeline Template
+name: Run Unit Tests
 
-run-name: ${{ github.actor }} is running pipeline on ${{ github.repository }}
+# Workflow starts when receiving custom event sent by CI workflow
+on: [push, pull_request]
 
-on: 
-  workflow_dispatch:
-  push:
-    # you may only define one of the `branches` and the `branches-ignore` for a single event
-    branches:
-      # - developer
-      - feature1
-    paths:
-      - 'force-app/**'
-    # you may only define one of the `paths` and the `paths-ignore` for a single event
-    #paths-ignore:
-    #  - '.github/**'
-    #  - 'scripts/**'
-    
-  pull_request:
-    #types: [closed]
-    # you may only define one of the `branches` and the `branches-ignore` for a single event
-    branches:
-      - master
-      - main
-    paths:
-      - 'force-app/**'
-    # you may only define one of the `paths` and the `paths-ignore` for a single event
-    #paths-ignore:
-    #  - '.github/**'
-    #  - 'scripts/**'
-      
+permissions:
+  security-events: write
+  pull-requests: write
+  actions: read
+  contents: read
+  issues: write
+
+# Jobs to be executed
 jobs:
-  
-  Deploy:
-    name: Deploy
-    #    environment: [developer, production, qa, integration]
-    uses: "./.github/workflows/demo.yml"
-    permissions:
-      security-events: write
-      pull-requests: write
-      actions: read
-      contents: read
-      issues: write
-    with:
-      environment: sandbox
-      # RunLocalTests
-      TESTLEVEL: RunSpecifiedTests
-      TESTCLASSES: TestAccountRevenueUpdateUsingBatchable
-    secrets: inherit
+  deploy-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Push source to scratch org
+      - name: "Push source to scratch org"
+        run: sfdx force:source:push
+
+      # Run Apex tests
+      - name: "Run apex tests"
+        run: sfdx force:apex:test:run
