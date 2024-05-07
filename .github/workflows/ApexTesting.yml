@@ -28,12 +28,15 @@ jobs:
           wget -qO- https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz | tar xJf - -C /usr/local/bin --strip-components 1
           echo 'Installed Salesforce CLI'
 
+      # Set PATH to include Salesforce CLI
+      - name: Set PATH
+        run: echo "::add-path::/usr/local/bin"
+
       # Authenticate with Salesforce
       - name: Authenticate with Salesforce
         run: |
           echo "Logging into Salesforce..."
-          echo "sfdx force:auth:sfdxurl:store -f <(echo \"{\\\"instanceUrl\\\": \\\"https://efficiency-customizatio261-dev-ed.scratch.lightning.force.com\\\", \\\"accessToken\\\": \\\"6Cel800DO8000002OyDB888O80000004hw1Fahk2OXw9dM4WLGBG9n4FGsEZECGXEBvfbu3ik7LCcdOBwggJmDaAa2saUdcwCREQfEjazyU\\\"}\")"
-          sfdx force:auth:sfdxurl:store -f <(echo "{\"instanceUrl\": \"https://efficiency-customizatio261-dev-ed.scratch.lightning.force.com\", \"accessToken\": \"6Cel800DO8000002OyDB888O80000004hw1Fahk2OXw9dM4WLGBG9n4FGsEZECGXEBvfbu3ik7LCcdOBwggJmDaAa2saUdcwCREQfEjazyU\"}")
+          sfdx force:auth:web:login:sfdxurl:store -f <(echo "{\"instanceUrl\": \"https://efficiency-customizatio261-dev-ed.scratch.lightning.force.com\", \"accessToken\": \"6Cel800DO8000002OyDB888O80000004hw1Fahk2OXw9dM4WLGBG9n4FGsEZECGXEBvfbu3ik7LCcdOBwggJmDaAa2saUdcwCREQfEjazyU\"}")
 
       # Push source to Salesforce org
       - name: Push source to Salesforce org
@@ -41,3 +44,8 @@ jobs:
           echo "Deploying source to Salesforce org..."
           sfdx force:source:push
 
+      # Run Apex tests
+      - name: Run Apex tests
+        run: |
+          echo "Running Apex tests..."
+          sfdx force:apex:test:run
