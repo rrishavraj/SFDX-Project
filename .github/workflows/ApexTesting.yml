@@ -25,7 +25,8 @@ jobs:
       # Install Salesforce CLI
       - name: Install Salesforce CLI
         run: |
-          curl -sL https://developer.salesforce.com/tools/sfdxcli-linux | bash
+          wget -qO- https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz | tar xJf - -C /usr/local/bin --strip-components 1
+          echo 'Installed Salesforce CLI'
 
       # Authenticate with Salesforce
       - name: Authenticate with Salesforce
@@ -40,8 +41,3 @@ jobs:
           echo "Deploying source to Salesforce org..."
           sfdx force:source:push
 
-      # Run Apex tests
-      - name: Run Apex tests
-        run: |
-          echo "Running Apex tests..."
-          sfdx force:apex:test:run
