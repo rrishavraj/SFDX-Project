@@ -33,7 +33,7 @@ jobs:
       # Authenticate with Salesforce
       - name: Authenticate Salesforce Org
         run: |
-          sfdx force:auth:web:login -a test-9kvfdvlcsrqn@example.com 
+          sfdx force:auth:web:login -r https://test.salesforce.com 
         env:
           SALESFORCE_JWT_SECRET_KEY: secrets.6Cel800DO8000002OyDB888O80000004hw1Fahk2OXw9dM4WLGBG9n4FGsEZECGXEBvfbu3ik7LCcdOBwggJmDaAa2saUdcwCREQfEjazyU
 
